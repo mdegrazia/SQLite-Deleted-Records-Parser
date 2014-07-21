@@ -1,13 +1,12 @@
 SQLite-Parser
 =============
 
-Script to recover deleted entries in an SQLite database and places the output into either a TSV file or text file
+Script to recover deleted entries in an SQLite database and places the output into either a TSV file or text file (-r)
 
 ###Usage
 
     sqlparse.py -f /home/sanforensics/smsmms.db -o report.tsv
-
-    sqliparse.py -f /home/sanforensics/smssms.db -r -o report.txt
+    sqlparse.py -f /home/sanforensics/smssms.db -r -o report.txt
     
 ###More Information
 
