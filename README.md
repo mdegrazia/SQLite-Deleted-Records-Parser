@@ -14,8 +14,7 @@ Script to recover deleted entries in an SQLite database and places the output in
     sqlparse_CLI.exe -f C:\Users\Mari\smsmms.db -t -o report.txt
 
 ###sqlparse_GUI.exe
-This file is a GUI interface. In order to use the GUI, the sqlparse_CLI.exe must be included in the same directory.
-Both of these files are included in the sqlparse_GUI.zip file.
+This file is a GUI interface
 
 ###More Information
 
