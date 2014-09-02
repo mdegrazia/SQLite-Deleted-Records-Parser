@@ -3,14 +3,23 @@ SQLite-Parser
 
 Script to recover deleted entries in an SQLite database and places the output into either a TSV file or text file (-r)
 
-###Usage
+###Usage for sqlparse.py
 
     sqlparse.py -f /home/sanforensics/smsmms.db -o report.tsv
     sqlparse.py -f /home/sanforensics/smssms.db -r -o report.txt
     
+###Usage for sqlparse_CLI.exe
+
+    sqlparse_CLI.exe -f C:\Users\Mari\smsmms.db -o report.tsv
+    sqlparse_CLI.exe -f C:\Users\Mari\smsmms.db -t -o report.txt
+
+###sqlparse_GUI.exe
+This file is a GUI interface. In order to use the GUI, the sqlparse_CLI.exe must be included in the same directory.
+Both of these files are included in the sqlparse_GUI.zip file.
+
 ###More Information
 
 View the blog post at http://az4n6.blogspot.com/2013/11/python-parser-to-recover-deleted-sqlite.html for more information
 
 
-Email Mari > arizona4n6 at gmail dot com for help/questions/bugs
+Email Mari,  arizona4n6 at gmail dot com for help/questions/bugs
