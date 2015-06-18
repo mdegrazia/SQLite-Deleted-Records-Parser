@@ -45,8 +45,9 @@ Examples:\n\
 parser = OptionParser(usage=usage)
 
 parser.add_option("-f", "--file", dest = "infile", help = "sqlite database file", metavar = "smsmms.db")
-parser.add_option("-o", "--output", dest = "outfile", help = "Uutput to a tsv file. Strips white space, tabs and non-printable characters from data field", metavar = "output.tsv")
+parser.add_option("-o", "--output", dest = "outfile", help = "Output to a tsv file. Strips white space, tabs and non-printable characters from data field", metavar = "output.tsv")
 parser.add_option("-r", "--raw", action ="store_true", dest = "raw", help = "Optional. Will out put data field in a raw format and text file.", metavar = "output.tsv")
+parser.add_option("-p", "--printpages", action ="store_true", dest = "printpages", help = "Optional. Will print any printable non-whitespace chars from all non-leaf b-tree pages (in case page has been re-purposed). WARNING: May output a lot of noise.")
 
 (options,args)=parser.parse_args()
 
@@ -80,7 +81,11 @@ if options.raw !=True:
     output.write("Type\tOffset\tLength\tData\n")
     
 #get the file size, we'll need this later
-filesize = len(f.read())
+#filesize = len(f.read())
+# Cheeky suggestion ... so it doesnt read the whole file unecessarily
+import os
+stats = os.stat(options.infile)
+filesize = stats.st_size
 
 #be kind, rewind (to the beginning of the file, that is)
 f.seek(0)
@@ -97,7 +102,6 @@ if "SQLite" not in header:
 #The pagesize this is stored at offset 16 at is 2 bytes long
 
 pagesize = struct.unpack('>H', f.read(2))[0]
-
 
 #According to SQLite.org/fileformat.html,  all the data is contained in the table-b-trees leaves.
 #Let's go to each Page, read the B-Tree Header, and see if it is a table b-tree, which is designated by the flag 13
@@ -181,9 +185,20 @@ while offset < filesize:
             
             freeblock_offset = next_fb_offset
         
-    
+    # Cheeky's Change: Extract strings from non-table b-tree leaf pages to handle re-purposed/re-used pages 
+    # According to docs, valid flag values are 2, 5, 10, 15 BUT test data has flags = 0 & they have string data
+    # So just print all non flag=13 pages. Has the potential to output a LOT of stuff.
+    elif (options.printpages):
+        # read block into one big string, filter unprintables, then print
+        pagestring = f.read(pagesize-1) # we've already read the flag byte
+        printable_pagestring = remove_ascii_non_printable(pagestring)
+        #print("Non-Table-Btree-Leaf-Type = " + str(flag) + ", offset = " + str(offset) + ", pagestring = " + printable_pagestring)
+        output.write("Non-Table-Btree-Leaf-Type_" + str(flag) + "\t" +  str(offset) + "\t" + str(pagesize) + "\t" + printable_pagestring + "\n" )
+        
     #increase the offset by one pagesize and loop
     offset = offset + pagesize
+
+output.close()
     
 #end
 
