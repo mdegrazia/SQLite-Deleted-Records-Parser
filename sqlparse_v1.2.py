@@ -23,7 +23,10 @@
 #
 # Version History:
 # v1.1 2013-11-05
-#	
+#
+# v1.2 2015-06-20
+# support added in to print out non b-tree pages
+#		
 #Find a bug???? Please let me know and I'll try to fix it (if you ask nicely....)
 #
 
