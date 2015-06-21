@@ -57,26 +57,26 @@ parser.add_option("-p", "--printpages", action ="store_true", dest = "printpages
 #no arugments given by user,exit
 if len(sys.argv) == 1:
     parser.print_help()
-    exit(0)
+    sys.exit(0)
 
 #if input of output file missing, exit
 if (options.infile == None) or (options.outfile == None):
     parser.print_help()
     print "Filename or Output file not given"
-    exit(0)
+    sys.exit(0)
 
 #open file, confirm it is an SQLite DB
 try:
     f=open(options.infile,"rb")
 except:
     print ("File not Found")
-    exit(0)
+    sys.exit(0)
     
 try:
     output = open(options.outfile, 'w')
 except:
     print "Error opening output file"
-    exit(0)
+    sys.exit(0)
 
 
 #write the column header if not outputting to text file
@@ -98,7 +98,7 @@ header = f.read(16)
 
 if "SQLite" not in header:
     print ("File does not appear to be an SQLite File")
-    exit(0)
+    sys.exit(0)
 
 
 #OK, lets get started. The SQLite database is made up of multiple Pages. We need to get the size of each page.
