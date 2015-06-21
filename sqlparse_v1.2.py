@@ -196,7 +196,13 @@ while offset < filesize:
         pagestring = f.read(pagesize-1) # we've already read the flag byte
         printable_pagestring = remove_ascii_non_printable(pagestring)
         #print("Non-Leaf-Table-Btree-Type = " + str(flag) + ", offset = " + str(offset) + ", pagestring = " + printable_pagestring)
-        output.write("Non-Leaf-Table-Btree-Type_" + str(flag) + "\t" +  str(offset) + "\t" + str(pagesize) + "\t" + printable_pagestring + "\n" )
+        if options.raw == True:
+            output.write("Non-Leaf-Table-Btree-Type_"+ str(flag) + ", Offset " + str(offset) + ", Length " + str(pagesize) + "\n")
+            output.write("Data: (ONLY PRINTABLE STRINGS ARE SHOWN HERE. FOR RAW DATA, CHECK FILE IN HEX VIEWER AT ABOVE LISTED OFFSET):\n\n")
+            output.write(printable_pagestring)
+            output.write( "\n\n")
+        else:
+            output.write("Non-Leaf-Table-Btree-Type_" + str(flag) + "\t" +  str(offset) + "\t" + str(pagesize) + "\t" + printable_pagestring + "\n" )
         
     #increase the offset by one pagesize and loop
     offset = offset + pagesize
