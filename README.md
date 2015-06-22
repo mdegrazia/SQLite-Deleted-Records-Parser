@@ -19,8 +19,8 @@ Script to recover deleted entries in an SQLite database and places the output in
     sqlparse_CLI.exe -f C:\Users\Mari\smsmms.db -o report.tsv
     sqlparse_CLI.exe -f C:\Users\Mari\smsmms.db -t -o report.txt
 	
-	sqlparse_CLI.exe -p -f /home/sanforensics/smsmms.db -o report.tsv
-    sqlparse_CLI.exe -p -f /home/sanforensics/smssms.db -r -o report.txt
+	sqlparse_CLI.exe -p -f C:\Users\Mari\smsmms.db -o report.tsv
+    sqlparse_CLI.exe -p -f C:\Users\Mari\smsmms.db -r -o report.txt
 
 ###sqlparse_GUI.exe
 This file is a GUI interface
