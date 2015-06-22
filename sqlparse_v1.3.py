@@ -7,7 +7,7 @@
 #sqlite.org/fileformat.html
 #
 #
-# Copyright (C) 2013 Mari DeGrazia (arizona4n6@gmail.com)
+# Copyright (C) 2015 Mari DeGrazia (arizona4n6@gmail.com)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,7 +25,11 @@
 # v1.1 2013-11-05
 #
 # v1.2 2015-06-20
-# support added in to print out non b-tree pages
+#support added in to print out non b-tree pages
+#
+# v.1.3 2015-06-21
+#minor changes / comments etc.
+# 
 #		
 #Find a bug???? Please let me know and I'll try to fix it (if you ask nicely....)
 #
@@ -195,7 +199,7 @@ while offset < filesize:
         # read block into one big string, filter unprintables, then print
         pagestring = f.read(pagesize-1) # we've already read the flag byte
         printable_pagestring = remove_ascii_non_printable(pagestring)
-        #print("Non-Leaf-Table-Btree-Type = " + str(flag) + ", offset = " + str(offset) + ", pagestring = " + printable_pagestring)
+        
         if options.raw == True:
             output.write("Non-Leaf-Table-Btree-Type_"+ str(flag) + ", Offset " + str(offset) + ", Length " + str(pagesize) + "\n")
             output.write("Data: (ONLY PRINTABLE STRINGS ARE SHOWN HERE. FOR RAW DATA, CHECK FILE IN HEX VIEWER AT ABOVE LISTED OFFSET):\n\n")
